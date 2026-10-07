@@ -1,0 +1,13 @@
+{
+  "name": "nit-band",
+  "version": "0.1.0",
+  "description": "Claude Code mod: one gentle English nit for each prompt you send, shown above the prompt instead of in the transcript.",
+  "types": "./types/index.d.ts",
+  "author": {
+    "name": "6igtree",
+    "url": "https://github.com/6igtree"
+  },
+  "homepage": "https://github.com/6igtree/nit-band",
+  "repository": "https://github.com/6igtree/nit-band",
+  "license": "MIT"
+}
