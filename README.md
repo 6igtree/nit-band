@@ -2,9 +2,9 @@
 
 **English** | [日本語](./README.ja.md)
 
-**A Claude Code mod for engineers in Japan: write your prompts in Japanese, and see how engineers abroad would say them, right above the prompt.**
+**A Claude Code mod: learn to say your daily work in the language you want to work in.**
 
-You already describe your work to your coding agent all day, in Japanese. nit-band shows the same request in natural workplace English, plus the one expression worth learning. Save the ones you like, and your phrasebook becomes the English of your own job.
+You already describe your work to your coding agent all day, in your own language. nit-band shows each prompt the way a teammate would say it in the language you are learning, plus the one expression worth learning. Save the ones you like, and your phrasebook becomes the vocabulary of your own job. Japanese → English by default.
 
 It stays out of the transcript, so your agent's context and replies are untouched.
 

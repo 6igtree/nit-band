@@ -1,7 +1,7 @@
 {
   "name": "nit-band",
   "version": "0.1.0",
-  "description": "Claude Code mod: see how the prompts you write at work would be said in the language you are learning, right above the prompt. Japanese → English by default.",
+  "description": "Claude Code mod: learn to say your daily work in the language you want to work in. Your prompts, the way a teammate would say them, right above the prompt. Japanese → English by default.",
   "types": "./types/index.d.ts",
   "author": {
     "name": "6igtree",

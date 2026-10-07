@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "nit-band",
-  "description": "Your Japanese prompts, in workplace English, above the prompt.",
+  "description": "Learn to say your daily work in the language you want to work in.",
   "owner": {
     "name": "6igtree",
     "url": "https://github.com/6igtree"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "nit-band",
-      "description": "Claude Code mod: see how the prompts you write at work would be said in the language you are learning, right above the prompt. Japanese → English by default.",
+      "description": "Claude Code mod: learn to say your daily work in the language you want to work in. Your prompts, the way a teammate would say them, right above the prompt. Japanese → English by default.",
       "source": "./",
       "category": "learning"
     }
