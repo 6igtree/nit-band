@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "nit-band",
-      "description": "Claude Code mod: write your prompts in Japanese, see how engineers abroad would say them in English, right above the prompt.",
+      "description": "Claude Code mod: see how the prompts you write at work would be said in the language you are learning, right above the prompt. Japanese → English by default.",
       "source": "./",
       "category": "learning"
     }

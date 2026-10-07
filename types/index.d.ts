@@ -1,4 +1,4 @@
-export type Line = { english: string; key: { from: string; to: string } | null }
+export type Line = { text: string; key: { from: string; to: string } | null }
 
 declare module 'claude-code' {
   interface PluginState {

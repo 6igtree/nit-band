@@ -1,7 +1,7 @@
 {
   "name": "nit-band",
   "version": "0.1.0",
-  "description": "Claude Code mod: write your prompts in Japanese, see how engineers abroad would say them in English, right above the prompt.",
+  "description": "Claude Code mod: see how the prompts you write at work would be said in the language you are learning, right above the prompt. Japanese → English by default.",
   "types": "./types/index.d.ts",
   "author": {
     "name": "6igtree",
@@ -9,5 +9,19 @@
   },
   "homepage": "https://github.com/6igtree/nit-band",
   "repository": "https://github.com/6igtree/nit-band",
-  "license": "MIT"
+  "license": "MIT",
+  "userConfig": {
+    "speak": {
+      "type": "string",
+      "title": "Language you work in",
+      "description": "The language you usually write your prompts in.",
+      "default": "Japanese"
+    },
+    "learn": {
+      "type": "string",
+      "title": "Language you are learning",
+      "description": "Prompts in your working language are shown in this language, with one expression worth learning.",
+      "default": "English"
+    }
+  }
 }
