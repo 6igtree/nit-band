@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "nit-band",
-  "description": "One gentle English nit for each prompt, above the prompt.",
+  "description": "Learn a language while you work: one gentle fix per prompt, above the prompt.",
   "owner": {
     "name": "6igtree",
     "url": "https://github.com/6igtree"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "nit-band",
-      "description": "Claude Code mod: one gentle English nit for each prompt you send, shown above the prompt instead of in the transcript.",
+      "description": "Claude Code mod: learn a language while you work. One gentle fix for every prompt you send, shown above the prompt instead of in the transcript.",
       "source": "./",
       "category": "learning"
     }

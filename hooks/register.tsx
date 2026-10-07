@@ -5,22 +5,26 @@ import type { Nit } from '../types'
 
 const current = atom({ plugin: 'nit-band', key: 'nit' } as const, null)
 
-// The rules come from skills/nit/SKILL.md ("The nit line"), trimmed to what fits one call.
-const SYSTEM = `You help an engineer whose first language is not English write better workplace English.
-You get one message they sent to their coding agent. Code, commands, paths and error messages are not prose; ignore them.
+// The rules come from nit's skills/nit/SKILL.md ("The nit line"), for any language.
+export function system(language: string): string {
+  return `You help someone who is learning ${language} use it at work. They write messages to their coding agent; you never answer the message itself.
+Code, commands, paths and error messages are not prose; ignore them.
 
-If the message is mostly English, pick at most ONE fix, in this order:
+Step 1. Decide which language the message is mostly written in.
+
+Step 2a. If it is NOT ${language}: always give how a teammate would say the whole message in natural workplace ${language}. Being fine in its own language does not matter. 
+
+Step 2b. If it IS ${language}: pick at most ONE fix, in this order:
 1. Meaning: a phrase that could be misunderstood.
 2. Tone: too blunt, rude, or too weak for a teammate.
 3. Naturalness: correct but clearly non-native.
-Skip small slips (articles, typos) that change neither meaning nor tone. If two phrasings are both fine, there is no fix.
+Skip small slips that change neither meaning nor tone. If two phrasings are both fine, there is no fix.
 
-If the message is mostly in another language and is something they could say to a teammate, give how they could say it in English.
-
-Answer with JSON only, exactly one of these three shapes, "kind" spelled as shown:
-{"kind":"nit","original":"<their exact words, short>","better":"<what a teammate would say>","why":"<under 15 words>"}
-{"kind":"in-english","original":"","better":"<the message in natural workplace English>","why":""}
-{"kind":"none"}`
+Write "why" in plain English. Answer with JSON only, in one of these shapes:
+{"inTarget":false,"better":"<the whole message in natural workplace ${language}>"}
+{"inTarget":true,"fix":true,"original":"<their exact words, short>","better":"<what a teammate would say, in ${language}>","why":"<under 15 words>"}
+{"inTarget":true,"fix":false}`
+}
 
 // Fenced blocks and inline code are not prose.
 export function prose(text: string): string {
@@ -32,17 +36,18 @@ export function parse(reply: string): Nit | null {
   if (!json) return null
   try {
     const r = JSON.parse(json[0])
-    // Haiku sometimes names the category ("tone") as the kind; judge by the fields instead.
-    if (r.kind === 'none' || typeof r.better !== 'string' || !r.better) return null
-    const original = typeof r.original === 'string' ? r.original : ''
-    return original
-      ? { kind: 'nit', original, better: r.better, why: typeof r.why === 'string' ? r.why : '' }
-      : { kind: 'in-english', original: '', better: r.better, why: '' }
+    // Which shape to show is decided here from inTarget, not by the model's labels.
+    if (typeof r.better !== 'string' || !r.better.trim()) return null
+    if (r.inTarget === false) return { kind: 'translate', original: '', better: r.better, why: '' }
+    if (r.inTarget === true && r.fix === true && typeof r.original === 'string' && r.original) {
+      return { kind: 'nit', original: r.original, better: r.better, why: typeof r.why === 'string' ? r.why : '' }
+    }
   } catch {}
   return null
 }
 
-export const register: Register = on => {
+export const register: Register = (on, options) => {
+  const language = String(options.language ?? '').trim() || 'English'
   let generation = 0
 
   on('prompt.submit', ($, e, next) => {
@@ -52,7 +57,7 @@ export const register: Register = on => {
       await update($, current, () => null)
       const text = prose(e.text)
       if (e.origin.kind !== 'composer' || text.startsWith('/') || text.length < 12) return
-      const r = await $.model.complete({ model: 'haiku', system: SYSTEM, prompt: text.slice(0, 2000), maxTokens: 300, effort: 'low' })
+      const r = await $.model.complete({ model: 'haiku', system: system(language), prompt: `Language being learned: ${language}\n\nMessage:\n${text.slice(0, 2000)}`, maxTokens: 300, effort: 'low' })
       const nit = r.isAnswered ? parse(r.text) : null
       if (nit && mine === generation) await update($, current, () => nit)
     })().catch(() => {})
@@ -68,15 +73,16 @@ export const register: Register = on => {
     const line =
       nit.kind === 'nit'
         ? `nit: "${nit.original}" → "${nit.better}"${nit.why ? ` (${nit.why})` : ''}`
-        : `in English: "${nit.better}"`
+        : `in ${language}: "${nit.better}"`
 
     const save = async () => {
       const home = await $.env.get('HOME')
       const path = `${home}/.nit/phrasebook.md`
       const day = new Date().toISOString().slice(0, 10)
       const note = nit.kind === 'nit' ? ` (instead of "${nit.original}")` : ''
+      const tag = language === 'English' ? '' : ` · ${language}`
       const old = (await $.fs.exists(path)) ? await $.fs.read(path) : ''
-      await $.fs.write(path, `${old}- ${day} · mod · "${nit.better}"${note}\n`)
+      await $.fs.write(path, `${old}- ${day} · mod${tag} · "${nit.better}"${note}\n`)
       $.ui.toast('Saved to ~/.nit/phrasebook.md')
       await update($, current, () => null)
     }

@@ -1,7 +1,7 @@
 {
   "name": "nit-band",
   "version": "0.1.0",
-  "description": "Claude Code mod: one gentle English nit for each prompt you send, shown above the prompt instead of in the transcript.",
+  "description": "Claude Code mod: learn a language while you work. One gentle fix for every prompt you send, shown above the prompt instead of in the transcript.",
   "types": "./types/index.d.ts",
   "author": {
     "name": "6igtree",
@@ -9,5 +9,13 @@
   },
   "homepage": "https://github.com/6igtree/nit-band",
   "repository": "https://github.com/6igtree/nit-band",
-  "license": "MIT"
+  "license": "MIT",
+  "userConfig": {
+    "language": {
+      "type": "string",
+      "title": "Language you are learning",
+      "description": "Prompts written in it get one fix; prompts in any other language get how to say them in it. Any language name works (English, Japanese, Spanish, ...).",
+      "default": "English"
+    }
+  }
 }
