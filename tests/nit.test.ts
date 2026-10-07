@@ -1,30 +1,23 @@
 import { expect, test } from 'claude-code/testing'
 
-import { parse, prose, system } from '../hooks/register'
+import { parse, prose } from '../hooks/register'
 
 test('code is not prose', () => {
-  expect(prose('fix this ```\nconst a = 1\n``` and run `npm test` please')).toBe('fix this and run please')
+  expect(prose('これ直して ```\nconst a = 1\n``` あと `npm test` も')).toBe('これ直して あと も')
 })
 
-test('a fix in the language being learned is a nit, with chatter around the JSON', () => {
-  const nit = parse('```json\n{"inTarget":true,"fix":true,"original":"you should fix","better":"could we fix","why":"softer"}\n```')
-  expect(nit).toEqual({ kind: 'nit', original: 'you should fix', better: 'could we fix', why: 'softer' })
+test('the English and the one expression worth learning parse, with chatter around the JSON', () => {
+  const line = parse('```json\n{"english":"Can we roll back and check the blast radius?","key":{"from":"影響範囲","to":"blast radius"}}\n```')
+  expect(line).toEqual({ english: 'Can we roll back and check the blast radius?', key: { from: '影響範囲', to: 'blast radius' } })
 })
 
-test('another language is always a translation, even if the model fills original', () => {
-  const nit = parse('{"inTarget":false,"original":"レビューお願いします","better":"Could you review this?","why":"x"}')
-  expect(nit).toEqual({ kind: 'translate', original: '', better: 'Could you review this?', why: '' })
+test('a missing or half key is dropped, the English stays', () => {
+  expect(parse('{"english":"Please add tests."}')).toEqual({ english: 'Please add tests.', key: null })
+  expect(parse('{"english":"Please add tests.","key":{"from":"","to":"tests"}}')?.key).toBe(null)
 })
 
-test('no fix, broken JSON and an empty answer show nothing', () => {
-  expect(parse('{"inTarget":true,"fix":false}')).toBe(null)
-  expect(parse('{"inTarget":true,')).toBe(null)
-  expect(parse('{"inTarget":false,"better":""}')).toBe(null)
-})
-
-test('the rules name the language being learned', () => {
-  const rules = system('Japanese')
-  expect(rules).toContain('learning Japanese')
-  expect(rules).toContain('natural workplace Japanese')
-  expect(rules).not.toContain('English write')
+test('skip, broken JSON and empty English show nothing', () => {
+  expect(parse('{"skip":true}')).toBe(null)
+  expect(parse('{"english":')).toBe(null)
+  expect(parse('{"english":"  "}')).toBe(null)
 })

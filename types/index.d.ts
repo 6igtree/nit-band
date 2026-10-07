@@ -1,7 +1,7 @@
-export type Nit = { kind: 'nit' | 'translate'; original: string; better: string; why: string }
+export type Line = { english: string; key: { from: string; to: string } | null }
 
 declare module 'claude-code' {
   interface PluginState {
-    'nit-band': { nit: Nit | null }
+    'nit-band': { line: Line | null }
   }
 }

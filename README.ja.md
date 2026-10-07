@@ -2,43 +2,29 @@
 
 [English](./README.md) | **日本語**
 
-**Claude Code の mod です。仕事をしながら外国語を学べます。送ったプロンプトごとに、入力欄の上でひとつだけ直します。**
+**日本で働くエンジニアのための Claude Code の mod です。日本語で書いたプロンプトを、海外のエンジニアならどう言うかを、入力欄の上に出します。**
 
-コーディングエージェントには毎日プロンプトを書いています。nit-band は、それを学びたい言語の練習に変えます。会話のログには入らないので、エージェントの文脈や返答には影響しません。
+毎日、コーディングエージェントに日本語で仕事の内容を伝えています。nit-band は、その依頼を職場の自然な英語にして、覚える価値のある表現を1つ添えます。気に入ったものを保存していくと、フレーズ帳が「自分の仕事の英語」になります。
+
+会話のログには入らないので、エージェントの文脈や返答には影響しません。
 
 ## 見た目
 
-英語を学んでいる人が、こう送ると:
+こう送ると:
 
-> you should fix this bug, it is very bad code
+> 本番で障害が出たので、昨日のデプロイを切り戻して影響範囲を調べて
 
 エージェントが作業している間、入力欄の上に出ます:
 
 ```
-nit: "you should fix this bug, it is very bad code" → "Could you fix this bug? The code needs some work." (Too blunt and vague; sounds like criticism rather than collaboration.)  [Save] [Hide]
+in English: "We have a production incident. Can you roll back yesterday's deploy and check the blast radius?"  [Save] [Hide]
+key: 影響範囲 → blast radius
 ```
 
-日本語を学んでいる人が、こう送ると:
+- **Save**: `~/.nit/phrasebook.md` に保存します。
+- **Hide**: 消します。次のプロンプトを送っても消えます。
 
-> could you check why the build is failing on main?
-
-```
-in Japanese: "mainのビルドが失敗している理由を確認してもらえますか？"  [Save] [Hide]
-```
-
-- 学んでいる言語で書いたとき: 直す価値があれば、**ひとつだけ直します**。
-- ほかの言語で書いたとき: 学んでいる言語での**言い方**を出します。
-- **Save** で `~/.nit/phrasebook.md` に保存します。**Hide** で消します。次のプロンプトを送っても消えます。
-
-## 何を直すか
-
-1回に1つだけ、次の順で選びます。
-
-1. **意味**: 誤解されそうな言い回し
-2. **トーン**: きつすぎる、失礼、または弱すぎる
-3. **自然さ**: 正しいが、明らかに非ネイティブ
-
-意味もトーンも変わらない小さなミスは直しません。コードブロック、インラインコード、スラッシュコマンド、12文字未満のプロンプトは対象外です。直した理由の説明は英語で出ます。
+英語で書いたプロンプト、スラッシュコマンド、コード、とても短いプロンプトは対象外です。
 
 ## インストール
 
@@ -49,17 +35,13 @@ Claude Code 2.1.287 以降（mods 対応版）が必要です。
 /plugin install nit-band@nit-band
 ```
 
-## 言語を選ぶ
-
-初期設定は英語です。`/config` の **Language you are learning** に、学びたい言語の名前を入れてください（`Japanese`、`Spanish`、`German`、`Korean` など）。
-
 ## 費用とプライバシー
 
-入力したプロンプトごとに、あなた自身の Claude Code セッションと認証で Haiku を1回呼びます。それ以外の場所には送りません。呼び出しは裏で動くので、プロンプトの送信が遅れることはありません。Haiku も間違えることがあり、使う人の少ない言語ほど起きやすいので、直しは提案として受け取ってください。
+入力したプロンプトごとに、あなた自身の Claude Code セッションと認証で Haiku を1回呼びます。それ以外の場所には送りません。呼び出しは裏で動くので、プロンプトの送信が遅れることはありません。
 
 ## 関連
 
-[nit](https://github.com/6igtree/nit): 英語向けの skill 版です。エージェントが英語を話す同僚として返答します。自分の言語から英語のみまで4段階あります。nit-band とフレーズ帳を共有します。
+[nit](https://github.com/6igtree/nit): skill 版です。エージェントが英語を話す同僚として返答し、あなたが書いた英語をやさしく直します。nit-band とフレーズ帳を共有します。
 
 ## ライセンス
 
