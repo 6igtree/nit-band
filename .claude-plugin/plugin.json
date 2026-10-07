@@ -1,6 +1,6 @@
 {
   "name": "nit-band",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code mod: learn to say your daily work in the language you want to work in. Your prompts, the way a teammate would say them, right above the prompt. Japanese → English by default.",
   "types": "./types/index.d.ts",
   "author": {
@@ -15,13 +15,37 @@
       "type": "string",
       "title": "Language you work in",
       "description": "The language you usually write your prompts in.",
-      "default": "Japanese"
+      "default": "Japanese",
+      "options": [
+        "English",
+        "Japanese",
+        "Chinese",
+        "Korean",
+        "Spanish",
+        "French",
+        "German",
+        "Portuguese",
+        "Vietnamese",
+        "Hindi"
+      ]
     },
     "learn": {
       "type": "string",
       "title": "Language you are learning",
       "description": "Prompts in your working language are shown in this language, with one expression worth learning.",
-      "default": "English"
+      "default": "English",
+      "options": [
+        "English",
+        "Japanese",
+        "Chinese",
+        "Korean",
+        "Spanish",
+        "French",
+        "German",
+        "Portuguese",
+        "Vietnamese",
+        "Hindi"
+      ]
     }
   }
 }

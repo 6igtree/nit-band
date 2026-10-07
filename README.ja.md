@@ -42,7 +42,7 @@ Claude Code 2.1.287 以降（mods 対応版）が必要です。
 - **Language you work in**: 普段プロンプトを書く言語（初期値 `Japanese`）
 - **Language you are learning**: 帯に出す言語（初期値 `English`）
 
-言語の名前なら何でも使えます。たとえば日本のチームと働く海外のエンジニアなら `English` → `Japanese` です。すでに学んでいる言語で書いたプロンプトは対象外です。
+English, Japanese, Chinese, Korean, Spanish, French, German, Portuguese, Vietnamese, Hindi から選べます。たとえば日本のチームと働く海外のエンジニアなら `English` → `Japanese` です。すでに学んでいる言語で書いたプロンプトは対象外です。
 
 ## 費用とプライバシー
 

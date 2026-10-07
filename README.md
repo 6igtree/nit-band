@@ -42,7 +42,7 @@ Japanese → English by default. Change both in `/config`:
 - **Language you work in**: the language you usually write prompts in (default `Japanese`).
 - **Language you are learning**: the language nit-band shows them in (default `English`).
 
-Any language name works, for example `English` → `Japanese` for engineers abroad working with a team in Japan. Prompts already in the language you are learning are skipped.
+Pick from English, Japanese, Chinese, Korean, Spanish, French, German, Portuguese, Vietnamese and Hindi; for example `English` → `Japanese` for engineers abroad working with a team in Japan. Prompts already in the language you are learning are skipped.
 
 ## Cost and privacy
 
