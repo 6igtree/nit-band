@@ -12,12 +12,12 @@ It stays out of the transcript, so your agent's context and replies are untouche
 
 You send:
 
-> 本番で障害が出たので、昨日のデプロイを切り戻して影響範囲を調べて
+> 昨日のデプロイ以降エラーが増えているので、原因と影響範囲を調べて
 
 Above the prompt, while your agent works:
 
 ```
-in English: "We have a production incident. Can you roll back yesterday's deploy and check the blast radius?"  [Save] [Hide]
+in English: "Errors have spiked since yesterday's deploy. Can you investigate the root cause and blast radius?"  [Save] [Hide]
 key: 影響範囲 → blast radius
 ```
 
